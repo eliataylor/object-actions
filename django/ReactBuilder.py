@@ -33,7 +33,10 @@ class ReactBuilder:
                 field_type = field['Field Type']
                 field_name = field['Field Name']
                 if field_name == '':
-                    field_name = create_machine_name(field['Field Label'])
+                    field_name = create_machine_name(field['Field Label'], True)
+                else:
+                    field_name = create_machine_name(field_name, True)
+
                 if field_type == '':
                     field_type = 'string'
 
@@ -48,7 +51,7 @@ class ReactBuilder:
                 else:
                     field_def += field_name
 
-                if field['Required'] < 1:
+                if not field['Required']:
                     field_def += "?: "
                 else:
                     field_def += ": "
@@ -56,7 +59,7 @@ class ReactBuilder:
                 data_type = infer_field_datatype(field_type, field_name, field)
                 field_def += data_type
                 field_js['data_type'] = data_type
-                field_js['field_type'] = field_type
+                field_js['field_type'] = create_machine_name(field_type, True)
                 field_js['cardinality'] = field['HowMany']
                 field_js['relationship'] = field['Relationship']
                 field_js['default'] = field['Default']
@@ -67,7 +70,7 @@ class ReactBuilder:
                 if field['HowMany'] == 'unlimited' or (isinstance(field['HowMany'], int) and field['HowMany'] > 1):
                     field_def += '[]'
 
-                if field['Required'] < 1:
+                if not field['Required']:
                     field_def += ' | null;'
                 else:
                     field_def += ';'

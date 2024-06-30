@@ -118,7 +118,7 @@ export interface ListView {
     results: Array<Customer | Supplier | Ingredient | Meal | Plan | OrderItem | Order>
 }
 
-export type EntityView = Customer | Supplier | Ingredient | Meal | Plan | OrderItem | Order; 
+export type EntityView = Customer | Supplier | Ingredient | Meal | Plan | OrderItem | Order;
 //---OBJECT-ACTIONS-API-RESP-ENDS---//
 
 
